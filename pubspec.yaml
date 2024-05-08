@@ -66,6 +66,7 @@ flutter:
     - assets/icons/ic_alert.svg
     - assets/icons/ic_location.svg
     - assets/icons/ic_profile.svg
+    - assets/icons/ic_search.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -95,6 +96,19 @@ flutter:
     - family:  IconProfile
       fonts:
         - asset: assets/fonts/IconProfile.ttf
+    - family:  SFProDisplay
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Regular.otf
+        - asset: assets/fonts/SF-Pro-Display-RegularItalic.otf
+          style: italic
+        - asset: assets/fonts/SF-Pro-Display-Semibold.otf
+          weight: 600
+        - asset: assets/fonts/SF-Pro-Display-SemiboldItalic.otf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/SF-Pro-Display-MediumItalic.otf
+          weight: 500
+          style: italic
     
 
   #   - family: Trajan Pro
