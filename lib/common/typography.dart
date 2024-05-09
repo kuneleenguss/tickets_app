@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tickets_app/common/colors.dart';
 
 class AppTypography {
   AppTypography(this.color);
@@ -16,10 +15,25 @@ class AppTypography {
       fontWeight: FontWeight.w600,
       fontSize: 20,
       color: color);
+  
+  TextStyle get title3 => TextStyle(
+      fontFamily: "SFProDisplay",
+      fontWeight: FontWeight.w600,
+      fontSize: 16,
+      height: 1.2,
+      color: color);
+
+  TextStyle get text2 => TextStyle(
+      fontFamily: "SFProDisplay",
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      height: 1.2,
+      color: color);
 
   TextStyle get butonText1 => TextStyle(
       fontFamily: "SFProDisplay",
       fontWeight: FontWeight.w600,
       fontSize: 16,
+      height: 1.3,
       color: color);
 }
