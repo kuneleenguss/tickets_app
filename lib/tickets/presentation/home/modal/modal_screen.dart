@@ -41,7 +41,7 @@ class HomeModalWindow extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 21, right: 11),
-              child: HomeModalCityList(),
+              child: HomeModalCityList(textEditingController: arrivalFieldController,),
               )
           ],
         ),

@@ -185,7 +185,8 @@ class _HomeModalQuickButton extends StatelessWidget {
 }
 
 class HomeModalCityList extends StatelessWidget {
-  const HomeModalCityList({super.key});
+  const HomeModalCityList({super.key, required this.textEditingController});
+  final TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -194,12 +195,12 @@ class HomeModalCityList extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
           color: BasicColors.grey3, borderRadius: BorderRadius.circular(16)),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _HomeModalCityListItem(),
-          _HomeModalCityListItem(),
-          _HomeModalCityListItem()
+          _HomeModalCityListItem(text: "Стамбул", textEditingController: textEditingController),
+          _HomeModalCityListItem(text: "Сочи", textEditingController: textEditingController,),
+          _HomeModalCityListItem(text: "Пхукет", textEditingController: textEditingController,)
         ],
       ),
     );
@@ -207,7 +208,9 @@ class HomeModalCityList extends StatelessWidget {
 }
 
 class _HomeModalCityListItem extends StatelessWidget {
-  const _HomeModalCityListItem({super.key});
+  const _HomeModalCityListItem({super.key, required this.text, required this.textEditingController});
+  final String text;
+  final TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +227,9 @@ class _HomeModalCityListItem extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () => {},
+        onPressed: () => {
+          textEditingController.text = text
+        },
         child: SizedBox(
           height: 56,
           child: Padding(
@@ -246,7 +251,7 @@ class _HomeModalCityListItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Стамбул",
+                          Text(text,
                               style: AppTypography(BasicColors.white).title3),
                           Text("Популярное направление",
                               style: AppTypography(BasicColors.grey5).text2)
