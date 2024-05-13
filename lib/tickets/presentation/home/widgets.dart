@@ -3,12 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
 import 'package:tickets_app/common/typography.dart';
 import 'package:tickets_app/common/widgets/input_field.dart';
+import 'modal/modal_screen.dart';
 
 class HomeInput extends StatelessWidget {
   HomeInput({super.key});
 
-  final TextEditingController _textController1 = TextEditingController();
-  final TextEditingController _textController2 = TextEditingController();
+  final TextEditingController _departureFieldController =
+      TextEditingController();
+  final TextEditingController _arrivalFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +47,9 @@ class HomeInput extends StatelessWidget {
                   children: [
                     Expanded(
                         child: InputField(
-                      textController: _textController1,
+                      textController: _departureFieldController,
                       hintText: "Откуда - Москва",
+                      callback: () => {},
                     )),
                     const Divider(
                       color: BasicColors.grey5,
@@ -54,8 +57,21 @@ class HomeInput extends StatelessWidget {
                     ),
                     Expanded(
                         child: InputField(
-                      textController: _textController2,
+                      textController: _arrivalFieldController,
                       hintText: "Куда - Турция",
+                      callback: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) {
+                            return HomeModalWindow(
+                              departureFieldController:
+                                  _departureFieldController,
+                              arrivalFieldController: _arrivalFieldController,
+                            );
+                          },
+                        );
+                      },
                     )),
                   ],
                 ),
@@ -151,7 +167,8 @@ class _HomeOfferListCard extends StatelessWidget {
                   height: 24,
                   child: SvgPicture.asset("assets/icons/ic_plane.svg",
                       fit: BoxFit.none, color: BasicColors.grey6)),
-              Text("от 22 264 \u20bd", style: AppTypography(BasicColors.white).text2),
+              Text("от 22 264 \u20bd",
+                  style: AppTypography(BasicColors.white).text2),
             ],
           ),
         )

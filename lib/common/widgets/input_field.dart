@@ -4,14 +4,16 @@ import 'package:tickets_app/common/typography.dart';
 
 class InputField extends StatelessWidget {
   const InputField(
-      {super.key, required this.textController, required this.hintText});
+      {super.key, required this.textController, required this.hintText, required this.callback});
 
   final TextEditingController textController;
   final String hintText;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onTap: callback,
       controller: textController,
       cursorWidth: 1.0,
       cursorColor: BasicColors.white,

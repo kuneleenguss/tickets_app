@@ -15,12 +15,12 @@ class BasicColors {
 }
 
 class SpecialColors {
-  static const blue = Color(0xFF4C95FE);
+  static const blue = Color(0xFF2261BC);
   static const darkBlue = Color(0xFF00427D);
 
-  static const green = Color(0xFF4CB24E);
-  static const darkGreen = Color(0xFF015905);
+  static const green = Color(0xFF3A633B);
+  static const darkGreen = Color(0xFF1E341F);
 
-  static const red = Color(0xFFFF0000);
+  static const red = Color(0xFFFF5E5E);
   static const orange = Color(0xFFF36E36);
 }
