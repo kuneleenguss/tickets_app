@@ -70,10 +70,14 @@ flutter:
     - assets/icons/ic_plane_modal.svg
     - assets/icons/ic_calendar_24.svg
     - assets/icons/ic_cross.svg
+    - assets/icons/ic_cross_add.svg
     - assets/icons/ic_earth_24.svg
     - assets/icons/ic_fire.svg
     - assets/icons/ic_plane_modal.svg
     - assets/icons/ic_route.svg
+    - assets/icons/ic_arrow_back.svg
+    - assets/icons/ic_arrow_swap.svg
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

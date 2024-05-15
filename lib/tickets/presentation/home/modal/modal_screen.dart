@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tickets_app/common/colors.dart';
-import 'widgets.dart';
+import 'modal_widgets.dart';
 
 class HomeModalWindow extends StatelessWidget {
   const HomeModalWindow({super.key, required this.departureFieldController, required this.arrivalFieldController});

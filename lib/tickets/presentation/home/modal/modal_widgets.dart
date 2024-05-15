@@ -3,12 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
 import 'package:tickets_app/common/typography.dart';
 import 'package:tickets_app/common/widgets/input_field.dart';
+import 'package:tickets_app/common/themes.dart';
 
 class HomeModalWindowInput extends StatelessWidget {
   HomeModalWindowInput(
       {super.key,
       required this.departureFieldController,
       required this.arrivalFieldController});
+      
   final TextEditingController departureFieldController;
   final TextEditingController arrivalFieldController;
 
@@ -68,8 +70,12 @@ class HomeModalWindowInput extends StatelessWidget {
                   child: SizedBox(
                       width: 24,
                       height: 24,
-                      child: SvgPicture.asset("assets/icons/ic_cross.svg",
-                          fit: BoxFit.none, color: BasicColors.grey7)),
+                      child: ElevatedButton(
+                        style: AppThemes.buttonTransparentTheme,
+                        onPressed: () => arrivalFieldController.clear(),
+                        child: SvgPicture.asset("assets/icons/ic_cross.svg",
+                            fit: BoxFit.none, color: BasicColors.grey7),
+                      )),
                 ),
               ],
             ),
@@ -198,9 +204,16 @@ class HomeModalCityList extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _HomeModalCityListItem(text: "Стамбул", textEditingController: textEditingController),
-          _HomeModalCityListItem(text: "Сочи", textEditingController: textEditingController,),
-          _HomeModalCityListItem(text: "Пхукет", textEditingController: textEditingController,)
+          _HomeModalCityListItem(
+              text: "Стамбул", textEditingController: textEditingController),
+          _HomeModalCityListItem(
+            text: "Сочи",
+            textEditingController: textEditingController,
+          ),
+          _HomeModalCityListItem(
+            text: "Пхукет",
+            textEditingController: textEditingController,
+          )
         ],
       ),
     );
@@ -208,7 +221,8 @@ class HomeModalCityList extends StatelessWidget {
 }
 
 class _HomeModalCityListItem extends StatelessWidget {
-  const _HomeModalCityListItem({super.key, required this.text, required this.textEditingController});
+  const _HomeModalCityListItem(
+      {super.key, required this.text, required this.textEditingController});
   final String text;
   final TextEditingController textEditingController;
 
@@ -227,9 +241,7 @@ class _HomeModalCityListItem extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () => {
-          textEditingController.text = text
-        },
+        onPressed: () => textEditingController.text = text,
         child: SizedBox(
           height: 56,
           child: Padding(

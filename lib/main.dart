@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tickets_app/common/typography.dart';
 import 'common/icons.dart' as AssetIcons;
 import 'common/colors.dart';
 import 'tickets/presentation/screens.dart';
@@ -35,6 +36,7 @@ class _AppViewState extends State<AppView> {
   
   final List<Widget> _widgets = <Widget>[
     const HomeScreen(),
+    SearchScreen(),
   ];
 
   void _onItemTapped (int index) {
@@ -51,16 +53,8 @@ class _AppViewState extends State<AppView> {
           height: 56,
           child: BottomNavigationBar(
             elevation: 0.0,
-            selectedLabelStyle: const TextStyle(
-              fontFamily: "SFProDisplay",
-              fontWeight: FontWeight.normal,
-              fontSize: 10,
-              ),
-            unselectedLabelStyle: const TextStyle(
-              fontFamily: "SFProDisplay",
-              fontWeight: FontWeight.normal,
-              fontSize: 10,
-              ),
+            selectedLabelStyle: AppTypography(SpecialColors.blue).tabText,
+            unselectedLabelStyle: AppTypography(BasicColors.grey6).tabText,
             backgroundColor: BasicColors.black,
             unselectedItemColor: BasicColors.grey6,
             selectedItemColor: SpecialColors.blue,
@@ -127,7 +121,7 @@ class _AppViewState extends State<AppView> {
           ),
         ),
         
-      body: _widgets[0],
+      body: _widgets[1],
     );
   }
 }
