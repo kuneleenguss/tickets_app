@@ -4,6 +4,7 @@ import 'package:tickets_app/common/colors.dart';
 import 'package:tickets_app/common/typography.dart';
 import 'package:tickets_app/common/widgets/input_field.dart';
 import 'package:tickets_app/common/themes.dart';
+import 'package:tickets_app/common/date.dart';
 
 part "search_widgets.dart";
 
@@ -18,14 +19,21 @@ class SearchScreen extends StatelessWidget {
     return Container(
       color: BasicColors.black,
       child: ListView(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 47.0),
+        padding: const EdgeInsets.only(top: 47.0),
         children: [
-          _SearchInput(
-              departureFieldController: departureFieldController,
-              arrivalFieldController: arrivalFieldController),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            child: _SearchInput(
+                departureFieldController: departureFieldController,
+                arrivalFieldController: arrivalFieldController),
+          ),
           const Padding(
-            padding: EdgeInsets.only(top: 13.0),
+            padding: EdgeInsets.only(top: 13.0, left: 16.0),
             child: _SearchChipList(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, top: 12.0, right: 16.0),
+            child: _SearchFlightsList(),
           )
         ],
       ),

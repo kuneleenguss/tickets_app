@@ -117,6 +117,7 @@ class _SearchInput extends StatelessWidget {
 
 class _SearchChipList extends StatelessWidget {
   const _SearchChipList({super.key});
+
   List<_SearchChipItem> get _items => [
         _SearchChipItem(
           text: Text(
@@ -125,11 +126,37 @@ class _SearchChipList extends StatelessWidget {
           ),
           callback: () => {},
           icon: SvgPicture.asset("assets/icons/ic_cross_add.svg",
-              fit: BoxFit.none, color: BasicColors.grey7),
+              fit: BoxFit.contain, color: BasicColors.grey7),
         ),
         _SearchChipItem(
           callback: () => {},
-          text: Text("обратно", style: AppTypography(BasicColors.white).title4),
+          text: Builder(builder: (context) {
+            DateTime date = DateTime.now();
+            return Row(
+              children: [
+                Text("${date.day} ${AppDate.months[date.month - 1]}",
+                    style: AppTypography(BasicColors.white).title4),
+                Text(", ${AppDate.weekdays[date.weekday - 1]}",
+                    style: AppTypography(BasicColors.grey6).title4),
+              ],
+            );
+          }),
+        ),
+        _SearchChipItem(
+          callback: () => {},
+          text:
+              Text("1,эконом", style: AppTypography(BasicColors.white).title4),
+          icon: SizedBox.square(
+            dimension: 10.0,
+            child: SvgPicture.asset("assets/icons/ic_profile.svg",
+                fit: BoxFit.contain, color: BasicColors.grey5),
+          ),
+        ),
+        _SearchChipItem(
+          callback: () => {},
+          text: Text("фильтры", style: AppTypography(BasicColors.white).title4),
+          icon: SvgPicture.asset("assets/icons/ic_filter.svg",
+              fit: BoxFit.contain, color: BasicColors.white),
         ),
       ];
 
@@ -149,7 +176,8 @@ class _SearchChipList extends StatelessWidget {
 }
 
 class _SearchChipItem extends StatelessWidget {
-  const _SearchChipItem({super.key, required this.text, required this.callback, this.icon});
+  const _SearchChipItem(
+      {super.key, required this.text, required this.callback, this.icon});
   final Widget text;
   final Widget? icon;
   final VoidCallback callback;
@@ -174,7 +202,10 @@ class _SearchChipItem extends StatelessWidget {
                       builder: (context) => (icon != null)
                           ? Padding(
                               padding: const EdgeInsets.only(right: 8.0),
-                              child: SizedBox(width: 16, height: 16, child: icon),
+                              child: SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: Center(child: icon)),
                             )
                           : Container()),
                   text
@@ -184,6 +215,28 @@ class _SearchChipItem extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class _SearchFlightsList extends StatelessWidget {
+  const _SearchFlightsList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 288,
+      padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+      decoration: BoxDecoration(
+        color: BasicColors.grey1,
+        borderRadius: BorderRadius.circular(16.0)
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Прямые рейсы", style: AppTypography(BasicColors.white).title2,)
+        ],
+      ),
     );
   }
 }

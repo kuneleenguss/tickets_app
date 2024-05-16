@@ -21,6 +21,7 @@ class AppTypography {
       fontFamily: "SFProDisplay",
       fontWeight: FontWeight.w600,
       fontSize: 20,
+      height: 1.2,
       color: color);
 
   TextStyle get title3 => TextStyle(
