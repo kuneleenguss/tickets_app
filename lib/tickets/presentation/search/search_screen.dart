@@ -34,7 +34,11 @@ class SearchScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 16.0, top: 12.0, right: 16.0),
             child: _SearchFlightsList(),
-          )
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 23),
+            child: _SearchShowTicketsButton(),
+            )
         ],
       ),
     );

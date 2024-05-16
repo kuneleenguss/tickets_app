@@ -226,17 +226,147 @@ class _SearchFlightsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 288,
-      padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
       decoration: BoxDecoration(
-        color: BasicColors.grey1,
-        borderRadius: BorderRadius.circular(16.0)
-      ),
+          color: BasicColors.grey1, borderRadius: BorderRadius.circular(16.0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Прямые рейсы", style: AppTypography(BasicColors.white).title2,)
+          Text(
+            "Прямые рейсы",
+            style: AppTypography(BasicColors.white).title2,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: ListView.separated(
+                  // ignore: body_might_complete_normally_nullable
+                  itemBuilder: (context, index) {
+                    switch (index) {
+                      case 0:
+                        return _SearchFlightsListItem(
+                            circleColor: SpecialColors.red);
+                      case 1:
+                        return _SearchFlightsListItem(
+                            circleColor: SpecialColors.blue);
+                      case 2:
+                        return _SearchFlightsListItem(
+                            circleColor: BasicColors.white);
+                    }
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                        height: 8.0,
+                      ),
+                  itemCount: 3),
+            ),
+          )
         ],
       ),
     );
+  }
+}
+
+class _SearchFlightsListItem extends StatelessWidget {
+  const _SearchFlightsListItem({super.key, required this.circleColor});
+  final Color circleColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(EdgeInsets.zero),
+          backgroundColor: MaterialStateProperty.all(Colors.transparent),
+          shadowColor: MaterialStateProperty.all(Colors.transparent),
+          surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
+          shape: MaterialStateProperty.all<OutlinedBorder>(
+            const LinearBorder(
+              side: BorderSide(color: BasicColors.grey4, width: 0.0),
+              bottom: LinearBorderEdge(),
+            ),
+          ),
+        ),
+        onPressed: () => {},
+        child: SizedBox(
+          height: 56,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: Center(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox.square(
+                    dimension: 24,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: circleColor,
+                          borderRadius: BorderRadius.circular(50.0)),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text("Уральские авиалинии",
+                                    style: AppTypography(BasicColors.white)
+                                        .title4),
+                                const Spacer(),
+                                Text(
+                                  "2 390 \u20bd",
+                                  style:
+                                      AppTypography(SpecialColors.blue).title4,
+                                ),
+                                SizedBox.square(
+                                  dimension: 16.0,
+                                  child: SvgPicture.asset(
+                                    "assets/icons/ic_arrow_forward.svg",
+                                    fit: BoxFit.none,
+                                    color: SpecialColors.blue,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Text(
+                                "Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong text",
+                                style: AppTypography(BasicColors.white).text2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
+                        )),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ));
+  }
+}
+
+class _SearchShowTicketsButton extends StatelessWidget {
+  const _SearchShowTicketsButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: AppThemes.buttonTransparentTheme,
+        onPressed: () => {},
+        child: Container(
+          height: 42.0,
+          decoration: BoxDecoration(
+              color: SpecialColors.blue,
+              borderRadius: BorderRadius.circular(8.0)),
+          child: Center(
+              child: Text(
+            "Посмотреть все билеты",
+            style: AppTypography(BasicColors.white).butonText1,
+          )),
+        ));
   }
 }
