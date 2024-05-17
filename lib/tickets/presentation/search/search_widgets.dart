@@ -370,3 +370,58 @@ class _SearchShowTicketsButton extends StatelessWidget {
         ));
   }
 }
+
+class _SearchSubscribeButton extends StatefulWidget {
+  const _SearchSubscribeButton({super.key});
+
+  @override
+  State<_SearchSubscribeButton> createState() => _SearchSubscribeButtonState();
+}
+
+class _SearchSubscribeButtonState extends State<_SearchSubscribeButton> {
+  bool _value = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 51,
+      padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+      decoration: BoxDecoration(
+          color: BasicColors.grey2, borderRadius: BorderRadius.circular(8.0)),
+      child: Center(
+        child: Row(children: [
+          SizedBox.square(
+            dimension: 24.0,
+            child: SvgPicture.asset(
+              "assets/icons/ic_alert.svg",
+              fit: BoxFit.none,
+              color: SpecialColors.blue,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text("Подписка на цену",
+                style: AppTypography(BasicColors.white).text1),
+          ),
+          const Spacer(),
+          SizedBox(
+            width: 50,
+            height: 30,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: CupertinoSwitch(
+                value: _value, 
+                activeColor: SpecialColors.blue,
+                trackColor: BasicColors.grey5,
+                onChanged:(value) {
+                setState(() {
+                  _value = value;
+                });
+              },),
+            ),
+          )
+        ]),
+      ),
+    );
+  }
+}

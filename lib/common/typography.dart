@@ -33,9 +33,15 @@ class AppTypography {
 
   TextStyle get title4 => TextStyle(
       fontFamily: "SFProDisplay",
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       fontSize: 14,
-      fontStyle: FontStyle.italic,
+      height: 1.2,
+      color: color);
+
+  TextStyle get text1 => TextStyle(
+      fontFamily: "SFProDisplay",
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
       height: 1.2,
       color: color);    
 

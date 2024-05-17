@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
@@ -38,7 +39,11 @@ class SearchScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 23),
             child: _SearchShowTicketsButton(),
-            )
+            ),
+          const Padding(
+            padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 24),
+            child: _SearchSubscribeButton(),
+            )  
         ],
       ),
     );
