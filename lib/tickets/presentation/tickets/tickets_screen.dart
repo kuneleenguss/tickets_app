@@ -14,13 +14,14 @@ class TicketsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.none,
       color: BasicColors.black,
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
       child: Column(
         children: [
           _TicketsInfoLabel(),
-          SizedBox(height: 34.0,),
-          _TicketsListItem()
+          SizedBox(height: 26.0),
+          _TicketsList()
         ],
       ),
     );
