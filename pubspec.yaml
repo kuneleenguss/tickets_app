@@ -79,6 +79,7 @@ flutter:
     - assets/icons/ic_arrow_swap.svg
     - assets/icons/ic_arrow_forward.svg
     - assets/icons/ic_filter.svg
+    - assets/icons/ic_graphs.svg
 
   #   - images/a_dot_ham.jpeg
 

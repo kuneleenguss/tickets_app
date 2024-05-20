@@ -14,8 +14,12 @@ class _TicketsInfoLabel extends StatelessWidget {
           Center(
             child: SizedBox.square(
               dimension: 24.0,
-              child: SvgPicture.asset("assets/icons/ic_arrow_back.svg",
-                  fit: BoxFit.none, color: SpecialColors.blue),
+              child: ElevatedButton(
+                style: AppThemes.buttonTransparentTheme,
+                onPressed: () => {},
+                child: SvgPicture.asset("assets/icons/ic_arrow_back.svg",
+                    fit: BoxFit.none, color: SpecialColors.blue),
+              ),
             ),
           ),
           Expanded(
@@ -44,12 +48,73 @@ class _TicketsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
-          itemBuilder: (context, index) => _TicketsListItem(),
-          separatorBuilder: (context, index) => SizedBox(
-                height: 24.0,
+      child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            ListView.separated(
+                itemBuilder: (context, index) => _TicketsListItem(),
+                separatorBuilder: (context, index) => const SizedBox(
+                      height: 16.0,
+                    ),
+                itemCount: 5),
+            Positioned(
+              bottom: 16.0,
+              child: Container(
+                height: 37,
+                width: 205,
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                    color: SpecialColors.blue,
+                    borderRadius: BorderRadius.circular(50.0)),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      style: AppThemes.buttonTransparentTheme,
+                      onPressed: () => {},
+                      child: Row(
+                        children: [
+                          SizedBox.square(
+                            dimension: 16.0,
+                            child: SvgPicture.asset(
+                                "assets/icons/ic_filter.svg",
+                                fit: BoxFit.none,
+                                color: BasicColors.white),
+                          ),
+                          const SizedBox(width: 4.0),
+                          Text(
+                            "Фильтр",
+                            style: AppTypography(BasicColors.white).title4,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      style: AppThemes.buttonTransparentTheme,
+                      onPressed: () => {},
+                      child: Row(
+                        children: [
+                          SizedBox.square(
+                            dimension: 16.0,
+                            child: SvgPicture.asset(
+                                "assets/icons/ic_graphs.svg",
+                                fit: BoxFit.none,
+                                color: BasicColors.white),
+                          ),
+                          const SizedBox(width: 4.0),
+                          Text(
+                            "График цен",
+                            style: AppTypography(BasicColors.white).title4,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-          itemCount: 5),
+            )
+          ]),
     );
   }
 }
@@ -108,7 +173,7 @@ class _TicketsListItem extends StatelessWidget {
                             "VKO",
                             style: AppTypography(BasicColors.grey6).title4,
                           ),
-                          SizedBox(width: 26.0),
+                          SizedBox(width: 20.0),
                           Text(
                             "AER",
                             style: AppTypography(BasicColors.grey6).title4,
