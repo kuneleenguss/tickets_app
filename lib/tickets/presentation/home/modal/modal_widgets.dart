@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tickets_app/common/colors.dart';
-import 'package:tickets_app/common/typography.dart';
-import 'package:tickets_app/common/widgets/input_field.dart';
-import 'package:tickets_app/common/themes.dart';
+part of "modal_screen.dart";
 
-class HomeModalWindowInput extends StatelessWidget {
-  HomeModalWindowInput(
+class _HomeModalWindowInput extends StatelessWidget {
+  _HomeModalWindowInput(
       {super.key,
       required this.departureFieldController,
       required this.arrivalFieldController});
@@ -86,10 +81,13 @@ class HomeModalWindowInput extends StatelessWidget {
   }
 }
 
-class HomeModalQuickButtons extends StatelessWidget {
-  HomeModalQuickButtons({super.key});
+class _HomeModalQuickButtons extends StatelessWidget {
+  _HomeModalQuickButtons({super.key, required this.arrivalFieldController});
+  final TextEditingController arrivalFieldController;
 
-  final List<Widget> _buttons = [
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> _buttons = [
     _HomeModalQuickButton(
         buttonColor: SpecialColors.green,
         text: "Сложный\nмаршрут",
@@ -103,7 +101,9 @@ class HomeModalQuickButtons extends StatelessWidget {
     _HomeModalQuickButton(
       buttonColor: SpecialColors.blue,
       text: "Куда угодно",
-      callback: () => {},
+      callback: () {
+        arrivalFieldController.text = "Куда угодно";
+      },
       icon: SvgPicture.asset("assets/icons/ic_earth_24.svg",
           fit: BoxFit.none, color: BasicColors.white),
     ),
@@ -126,9 +126,6 @@ class HomeModalQuickButtons extends StatelessWidget {
       ),
     )
   ];
-
-  @override
-  Widget build(BuildContext context) {
     return SizedBox(
         height: 90,
         child: Row(
@@ -190,8 +187,8 @@ class _HomeModalQuickButton extends StatelessWidget {
   }
 }
 
-class HomeModalCityList extends StatelessWidget {
-  const HomeModalCityList({super.key, required this.textEditingController});
+class _HomeModalCityList extends StatelessWidget {
+  const _HomeModalCityList({super.key, required this.textEditingController});
   final TextEditingController textEditingController;
 
   @override

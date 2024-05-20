@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
 import 'package:tickets_app/common/typography.dart';
-import 'package:tickets_app/common/widgets/input_field.dart';
 import 'package:tickets_app/common/themes.dart';
-import 'package:tickets_app/common/date.dart';
 
 part "tickets_widgets.dart";
 

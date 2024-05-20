@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tickets_app/common/typography.dart';
-import 'common/icons.dart' as AssetIcons;
 import 'common/colors.dart';
 import 'tickets/presentation/screens.dart';
 
@@ -122,7 +121,7 @@ class _AppViewState extends State<AppView> {
           ),
         ),
         
-      body: _widgets[2],
+      body: _widgets[0],
     );
   }
 }

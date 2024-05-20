@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
-import 'modal_widgets.dart';
+import 'package:tickets_app/common/typography.dart';
+import 'package:tickets_app/common/widgets/input_field.dart';
+import 'package:tickets_app/common/themes.dart';
+
+part 'modal_widgets.dart';
 
 class HomeModalWindow extends StatelessWidget {
   const HomeModalWindow({super.key, required this.departureFieldController, required this.arrivalFieldController});
@@ -30,18 +35,18 @@ class HomeModalWindow extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24),
-              child: HomeModalWindowInput(
+              child: _HomeModalWindowInput(
                 departureFieldController: departureFieldController,
                 arrivalFieldController: arrivalFieldController,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24),
-              child: HomeModalQuickButtons(),
+              child: _HomeModalQuickButtons(arrivalFieldController: arrivalFieldController,),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30, left: 21, right: 11),
-              child: HomeModalCityList(textEditingController: arrivalFieldController,),
+              child: _HomeModalCityList(textEditingController: arrivalFieldController,),
               )
           ],
         ),
