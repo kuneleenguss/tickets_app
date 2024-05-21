@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
-import 'home_widgets.dart';
+import 'package:tickets_app/common/typography.dart';
+import 'package:tickets_app/common/widgets/input_field.dart';
+import 'modal/modal_screen.dart';
+
+part 'home_widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,19 +19,19 @@ class HomeScreen extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.only(top: 28),
-              child: HomeLabel(),
+              child: _HomeLabel(),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 36, left: 16, right: 16),
-              child: HomeInput(),
+              child: _HomeInput(),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 32, left: 16),
-              child: HomeOfferListLabel(),
+              child: _HomeOfferListLabel(),
               ),
             const Padding(
               padding: EdgeInsets.only(left: 12, top: 25),
-              child: HomeOfferList(),
+              child: _HomeOfferList(),
               )
           ],
         ),

@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tickets_app/common/colors.dart';
-import 'package:tickets_app/common/typography.dart';
-import 'package:tickets_app/common/widgets/input_field.dart';
-import 'modal/modal_screen.dart';
+part of 'home_screen.dart';
 
-class HomeInput extends StatelessWidget {
-  HomeInput({super.key});
+class _HomeInput extends StatelessWidget {
+  _HomeInput({super.key});
 
   final TextEditingController _departureFieldController =
       TextEditingController();
@@ -84,8 +79,8 @@ class HomeInput extends StatelessWidget {
   }
 }
 
-class HomeLabel extends StatelessWidget {
-  const HomeLabel({super.key});
+class _HomeLabel extends StatelessWidget {
+  const _HomeLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -99,8 +94,8 @@ class HomeLabel extends StatelessWidget {
   }
 }
 
-class HomeOfferListLabel extends StatelessWidget {
-  const HomeOfferListLabel({super.key});
+class _HomeOfferListLabel extends StatelessWidget {
+  const _HomeOfferListLabel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,8 +107,8 @@ class HomeOfferListLabel extends StatelessWidget {
   }
 }
 
-class HomeOfferList extends StatelessWidget {
-  const HomeOfferList({super.key});
+class _HomeOfferList extends StatelessWidget {
+  const _HomeOfferList({super.key});
 
   @override
   Widget build(BuildContext context) {
