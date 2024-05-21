@@ -352,13 +352,14 @@ class _SearchFlightsListItem extends StatelessWidget {
 }
 
 class _SearchShowTicketsButton extends StatelessWidget {
-  const _SearchShowTicketsButton({super.key});
+  const _SearchShowTicketsButton({super.key, required this.callback});
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: AppThemes.buttonTransparentTheme,
-        onPressed: () => {},
+        onPressed: callback,
         child: Container(
           height: 42.0,
           decoration: BoxDecoration(
@@ -412,14 +413,15 @@ class _SearchSubscribeButtonState extends State<_SearchSubscribeButton> {
             child: FittedBox(
               fit: BoxFit.contain,
               child: CupertinoSwitch(
-                value: _value, 
+                value: _value,
                 activeColor: SpecialColors.blue,
                 trackColor: BasicColors.grey5,
-                onChanged:(value) {
-                setState(() {
-                  _value = value;
-                });
-              },),
+                onChanged: (value) {
+                  setState(() {
+                    _value = value;
+                  });
+                },
+              ),
             ),
           )
         ]),

@@ -35,7 +35,6 @@ class _AppViewState extends State<AppView> {
   
   final List<Widget> _widgets = <Widget>[
     const HomeScreen(),
-    TicketsScreen()
   ];
 
   void _onItemTapped (int index) {

@@ -80,7 +80,7 @@ class _HomeModalWindowInput extends StatelessWidget {
   }
 }
 
-class _HomeModalArrivalInputField extends StatelessWidget {
+class _HomeModalArrivalInputField extends StatefulWidget {
   _HomeModalArrivalInputField(
       {super.key,
       required this.departureFieldController,
@@ -89,43 +89,53 @@ class _HomeModalArrivalInputField extends StatelessWidget {
   final TextEditingController departureFieldController;
   final TextEditingController arrivalFieldController;
   final String hintText;
+
+  @override
+  State<_HomeModalArrivalInputField> createState() =>
+      _HomeModalArrivalInputFieldState();
+}
+
+class _HomeModalArrivalInputFieldState
+    extends State<_HomeModalArrivalInputField> {
   final FocusNode _arrivalFieldFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     void handleArrivalField() {
       if (_arrivalFieldFocusNode.hasFocus == false &&
-          arrivalFieldController.text.isNotEmpty) {
+          widget.arrivalFieldController.text.isNotEmpty) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
+          widget.arrivalFieldController.removeListener(handleArrivalField);
           return SearchScreen(
-              departureFieldController: departureFieldController,
-              arrivalFieldController: arrivalFieldController);
-        }));
+              departureFieldController: widget.departureFieldController,
+              arrivalFieldController: widget.arrivalFieldController);
+        })).then((value) {
+          if (context.mounted) setState(() {});
+        });
       } else {
         return;
       }
-      // arrivalFieldController.removeListener(() {
-      //   handleArrivalField();
-      // });
     }
 
-    _arrivalFieldFocusNode.addListener(() {
-      handleArrivalField();
-    });
+    _arrivalFieldFocusNode.addListener(handleArrivalField);
 
-    arrivalFieldController.addListener(() {
-      handleArrivalField();
-    });
+    widget.arrivalFieldController.addListener(handleArrivalField);
+
+    // arrivalFieldController.removeListener(handleArrivalField);
+
+    // arrivalFieldController.removeListener(() {
+    //     handleArrivalField;
+    //   });
 
     return TextField(
       focusNode: _arrivalFieldFocusNode,
-      controller: arrivalFieldController,
+      controller: widget.arrivalFieldController,
       cursorWidth: 1.0,
       cursorColor: BasicColors.white,
       decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: const EdgeInsets.fromLTRB(0, 11, 0, 11),
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: AppTypography(BasicColors.grey6).butonText1),
       style: AppTypography(BasicColors.white).butonText1,
     );

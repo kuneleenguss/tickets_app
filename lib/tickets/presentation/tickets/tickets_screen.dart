@@ -7,7 +7,10 @@ import 'package:tickets_app/common/themes.dart';
 part "tickets_widgets.dart";
 
 class TicketsScreen extends StatelessWidget {
-  const TicketsScreen({super.key});
+  const TicketsScreen(
+      {super.key, required this.departureCity, required this.arrivalCity});
+  final String departureCity;
+  final String arrivalCity;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,10 @@ class TicketsScreen extends StatelessWidget {
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
         child: Column(
           children: [
-            _TicketsInfoLabel(),
+            _TicketsInfoLabel(
+              departureCity: departureCity,
+              arrivalCity: arrivalCity,
+            ),
             SizedBox(height: 26.0),
             _TicketsList()
           ],

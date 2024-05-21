@@ -1,7 +1,9 @@
 part of "tickets_screen.dart";
 
 class _TicketsInfoLabel extends StatelessWidget {
-  const _TicketsInfoLabel({super.key});
+  const _TicketsInfoLabel({super.key, required this.departureCity, required this.arrivalCity});
+  final String departureCity;
+  final String arrivalCity;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class _TicketsInfoLabel extends StatelessWidget {
               dimension: 24.0,
               child: ElevatedButton(
                 style: AppThemes.buttonTransparentTheme,
-                onPressed: () => {},
+                onPressed:() => Navigator.pop(context),
                 child: SvgPicture.asset("assets/icons/ic_arrow_back.svg",
                     fit: BoxFit.none, color: SpecialColors.blue),
               ),
@@ -29,7 +31,7 @@ class _TicketsInfoLabel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Москва-Сочи",
+                Text("${departureCity}-${arrivalCity}",
                     style: AppTypography(BasicColors.white).title3),
                 Text("23 февраля, 1 пассажир",
                     style: AppTypography(BasicColors.grey6).title4)

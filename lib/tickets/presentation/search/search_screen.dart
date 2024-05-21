@@ -6,11 +6,15 @@ import 'package:tickets_app/common/typography.dart';
 import 'package:tickets_app/common/widgets/input_field.dart';
 import 'package:tickets_app/common/themes.dart';
 import 'package:tickets_app/common/date.dart';
+import '../tickets/tickets_screen.dart';
 
 part "search_widgets.dart";
 
 class SearchScreen extends StatelessWidget {
-  SearchScreen({super.key, required this.departureFieldController, required this.arrivalFieldController});
+  SearchScreen(
+      {super.key,
+      required this.departureFieldController,
+      required this.arrivalFieldController});
   final TextEditingController departureFieldController;
   final TextEditingController arrivalFieldController;
 
@@ -33,17 +37,32 @@ class SearchScreen extends StatelessWidget {
               child: _SearchChipList(),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16.0, top: 12.0, right: 16.0),
+              padding:
+                  const EdgeInsets.only(left: 16.0, top: 12.0, right: 16.0),
               child: _SearchFlightsList(),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 23),
-              child: _SearchShowTicketsButton(),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 23),
+              child: _SearchShowTicketsButton(
+                callback: () {
+                  if (departureFieldController.text.isNotEmpty &&
+                      arrivalFieldController.text.isNotEmpty) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TicketsScreen(
+                            departureCity: departureFieldController.text,
+                            arrivalCity: arrivalFieldController.text,
+                          ),
+                        ));
+                  }
+                },
               ),
+            ),
             const Padding(
               padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 24),
               child: _SearchSubscribeButton(),
-              )  
+            )
           ],
         ),
       ),
