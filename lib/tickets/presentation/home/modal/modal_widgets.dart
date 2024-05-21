@@ -5,7 +5,7 @@ class _HomeModalWindowInput extends StatelessWidget {
       {super.key,
       required this.departureFieldController,
       required this.arrivalFieldController});
-      
+
   final TextEditingController departureFieldController;
   final TextEditingController arrivalFieldController;
 
@@ -53,13 +53,12 @@ class _HomeModalWindowInput extends StatelessWidget {
                         fit: BoxFit.none, color: BasicColors.white)),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: InputField(
-                      textController: arrivalFieldController,
-                      hintText: "Куда - Турция",
-                      callback: () => {},
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: _HomeModalArrivalInputField(
+                        arrivalFieldController: arrivalFieldController,
+                        departureFieldController: departureFieldController,
+                        hintText: "Куда - Турция",
+                      )),
                 ),
                 Center(
                   child: SizedBox(
@@ -81,6 +80,58 @@ class _HomeModalWindowInput extends StatelessWidget {
   }
 }
 
+class _HomeModalArrivalInputField extends StatelessWidget {
+  _HomeModalArrivalInputField(
+      {super.key,
+      required this.departureFieldController,
+      required this.arrivalFieldController,
+      required this.hintText});
+  final TextEditingController departureFieldController;
+  final TextEditingController arrivalFieldController;
+  final String hintText;
+  final FocusNode _arrivalFieldFocusNode = FocusNode();
+
+  @override
+  Widget build(BuildContext context) {
+    void handleArrivalField() {
+      if (_arrivalFieldFocusNode.hasFocus == false &&
+          arrivalFieldController.text.isNotEmpty) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return SearchScreen(
+              departureFieldController: departureFieldController,
+              arrivalFieldController: arrivalFieldController);
+        }));
+      } else {
+        return;
+      }
+      // arrivalFieldController.removeListener(() {
+      //   handleArrivalField();
+      // });
+    }
+
+    _arrivalFieldFocusNode.addListener(() {
+      handleArrivalField();
+    });
+
+    arrivalFieldController.addListener(() {
+      handleArrivalField();
+    });
+
+    return TextField(
+      focusNode: _arrivalFieldFocusNode,
+      controller: arrivalFieldController,
+      cursorWidth: 1.0,
+      cursorColor: BasicColors.white,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.fromLTRB(0, 11, 0, 11),
+          hintText: hintText,
+          hintStyle: AppTypography(BasicColors.grey6).butonText1),
+      style: AppTypography(BasicColors.white).butonText1,
+    );
+  }
+}
+
 class _HomeModalQuickButtons extends StatelessWidget {
   _HomeModalQuickButtons({super.key, required this.arrivalFieldController});
   final TextEditingController arrivalFieldController;
@@ -88,44 +139,44 @@ class _HomeModalQuickButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _buttons = [
-    _HomeModalQuickButton(
-        buttonColor: SpecialColors.green,
-        text: "Сложный\nмаршрут",
+      _HomeModalQuickButton(
+          buttonColor: SpecialColors.green,
+          text: "Сложный\nмаршрут",
+          icon: SizedBox(
+            width: 24,
+            height: 24,
+            child: SvgPicture.asset("assets/icons/ic_route.svg",
+                fit: BoxFit.none, color: BasicColors.white),
+          ),
+          callback: () => {}),
+      _HomeModalQuickButton(
+        buttonColor: SpecialColors.blue,
+        text: "Куда угодно",
+        callback: () {
+          arrivalFieldController.text = "Куда угодно";
+        },
+        icon: SvgPicture.asset("assets/icons/ic_earth_24.svg",
+            fit: BoxFit.none, color: BasicColors.white),
+      ),
+      _HomeModalQuickButton(
+        buttonColor: SpecialColors.darkBlue,
+        text: "Выходные",
+        callback: () => {},
+        icon: SvgPicture.asset("assets/icons/ic_calendar_24.svg",
+            fit: BoxFit.none, color: BasicColors.white),
+      ),
+      _HomeModalQuickButton(
+        buttonColor: SpecialColors.red,
+        text: "Горячие\nбилеты",
+        callback: () => {},
         icon: SizedBox(
           width: 24,
           height: 24,
-          child: SvgPicture.asset("assets/icons/ic_route.svg",
+          child: SvgPicture.asset("assets/icons/ic_fire.svg",
               fit: BoxFit.none, color: BasicColors.white),
         ),
-        callback: () => {}),
-    _HomeModalQuickButton(
-      buttonColor: SpecialColors.blue,
-      text: "Куда угодно",
-      callback: () {
-        arrivalFieldController.text = "Куда угодно";
-      },
-      icon: SvgPicture.asset("assets/icons/ic_earth_24.svg",
-          fit: BoxFit.none, color: BasicColors.white),
-    ),
-    _HomeModalQuickButton(
-      buttonColor: SpecialColors.darkBlue,
-      text: "Выходные",
-      callback: () => {},
-      icon: SvgPicture.asset("assets/icons/ic_calendar_24.svg",
-          fit: BoxFit.none, color: BasicColors.white),
-    ),
-    _HomeModalQuickButton(
-      buttonColor: SpecialColors.red,
-      text: "Горячие\nбилеты",
-      callback: () => {},
-      icon: SizedBox(
-        width: 24,
-        height: 24,
-        child: SvgPicture.asset("assets/icons/ic_fire.svg",
-            fit: BoxFit.none, color: BasicColors.white),
-      ),
-    )
-  ];
+      )
+    ];
     return SizedBox(
         height: 90,
         child: Row(
