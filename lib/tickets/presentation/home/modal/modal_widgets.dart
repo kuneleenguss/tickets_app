@@ -98,29 +98,51 @@ class _HomeModalArrivalInputField extends StatefulWidget {
 class _HomeModalArrivalInputFieldState
     extends State<_HomeModalArrivalInputField> {
   final FocusNode _arrivalFieldFocusNode = FocusNode();
+  String? currentText;
 
   @override
-  Widget build(BuildContext context) {
-    void handleArrivalField() {
-      if (_arrivalFieldFocusNode.hasFocus == false &&
-          widget.arrivalFieldController.text.isNotEmpty) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
+  void initState() {
+    // TODO: implement initState
+    _arrivalFieldFocusNode.addListener(handleArrivalField);
+    widget.arrivalFieldController.addListener(handleArrivalField);
+    currentText = "text";
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    widget.arrivalFieldController.removeListener(handleArrivalField);
+    _arrivalFieldFocusNode.removeListener(handleArrivalField);
+    super.dispose();
+  }
+
+  void handleArrivalField() async {
+    print(_arrivalFieldFocusNode.hasFocus);
+    if (_arrivalFieldFocusNode.hasFocus == false &&
+        widget.arrivalFieldController.text.isNotEmpty && context.mounted && currentText != widget.arrivalFieldController.text) {
+      final navigator = Navigator.of(context);
+      final reLoadPage = await navigator.push(
+        MaterialPageRoute(builder: (context) {
           widget.arrivalFieldController.removeListener(handleArrivalField);
+          _arrivalFieldFocusNode.removeListener(handleArrivalField);
           return SearchScreen(
               departureFieldController: widget.departureFieldController,
               arrivalFieldController: widget.arrivalFieldController);
-        })).then((value) {
-          if (context.mounted) setState(() {});
+        }),
+      );
+      if (context.mounted == true && reLoadPage == true) {
+        setState(() {
+          _arrivalFieldFocusNode.addListener(handleArrivalField);
+          widget.arrivalFieldController.addListener(handleArrivalField);
+          currentText = widget.arrivalFieldController.text;
         });
-      } else {
-        return;
       }
     }
+  }
 
-    _arrivalFieldFocusNode.addListener(handleArrivalField);
-
-    widget.arrivalFieldController.addListener(handleArrivalField);
-
+  @override
+  Widget build(BuildContext context) {
     // arrivalFieldController.removeListener(handleArrivalField);
 
     // arrivalFieldController.removeListener(() {

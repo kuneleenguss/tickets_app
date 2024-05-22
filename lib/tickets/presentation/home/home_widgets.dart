@@ -56,9 +56,10 @@ class _HomeInput extends StatelessWidget {
                       hintText: "Куда - Турция",
                       callback: () async {
                         await showModalBottomSheet(
+                          useRootNavigator: true,
                           isScrollControlled: true,
                           context: context,
-                          builder: (context) {
+                          builder: (BuildContext context) {
                             return HomeModalWindow(
                               departureFieldController:
                                   _departureFieldController,

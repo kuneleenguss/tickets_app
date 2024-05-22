@@ -46,7 +46,7 @@ class SearchScreen extends StatelessWidget {
               child: _SearchShowTicketsButton(
                 callback: () {
                   if (departureFieldController.text.isNotEmpty &&
-                      arrivalFieldController.text.isNotEmpty) {
+                      arrivalFieldController.text.isNotEmpty && context.mounted) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(

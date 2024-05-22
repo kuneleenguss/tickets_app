@@ -33,7 +33,9 @@ class _SearchInput extends StatelessWidget {
                   child: ElevatedButton(
                     style: AppThemes.buttonTransparentTheme,
                     onPressed: () {
-                      Navigator.pop(context);
+                      if (context.mounted) {
+                        Navigator.of(context).pop(true);
+                      }
                     },
                     child: SvgPicture.asset("assets/icons/ic_arrow_back.svg",
                         fit: BoxFit.none, color: BasicColors.white),
