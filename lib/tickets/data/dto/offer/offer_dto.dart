@@ -9,7 +9,11 @@ class OfferDto extends Offer {
       {required super.id,
       required super.title,
       required super.town,
-      required super.price});
+      required super.price
+      });
 
-  factory OfferDto.fromJson(Map<String, dynamic> json) => _$OfferDtoFromJson(json);
+  factory OfferDto.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> map = Map.from(json['offers'][0]);
+    return _$OfferDtoFromJson(map);
+  }
 }
