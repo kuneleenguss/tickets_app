@@ -5,6 +5,7 @@ import 'package:tickets_app/common/typography.dart';
 import 'common/colors.dart';
 import 'tickets/presentation/screens.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
