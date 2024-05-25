@@ -21,13 +21,13 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
-  Future<OfferDto> getOffers() async {
+  Future<Map<String, List<OfferDto>>> getOffers() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<OfferDto>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Map<String, List<OfferDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,18 +43,22 @@ class _ApiClient implements ApiClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = OfferDto.fromJson(_result.data!);
+    var value = _result.data!.map((k, dynamic v) => MapEntry(
+        k,
+        (v as List)
+            .map((i) => OfferDto.fromJson(i as Map<String, dynamic>))
+            .toList()));
     return value;
   }
 
   @override
-  Future<TicketOfferDto> getTicketOffers() async {
+  Future<Map<String, List<TicketOfferDto>>> getTicketOffers() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TicketOfferDto>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Map<String, List<TicketOfferDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -70,18 +74,22 @@ class _ApiClient implements ApiClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = TicketOfferDto.fromJson(_result.data!);
+    var value = _result.data!.map((k, dynamic v) => MapEntry(
+        k,
+        (v as List)
+            .map((i) => TicketOfferDto.fromJson(i as Map<String, dynamic>))
+            .toList()));
     return value;
   }
 
   @override
-  Future<TicketDto> getTickets() async {
+  Future<Map<String, List<TicketDto>>> getTickets() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<TicketDto>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Map<String, List<TicketDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -97,7 +105,11 @@ class _ApiClient implements ApiClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = TicketDto.fromJson(_result.data!);
+    var value = _result.data!.map((k, dynamic v) => MapEntry(
+        k,
+        (v as List)
+            .map((i) => TicketDto.fromJson(i as Map<String, dynamic>))
+            .toList()));
     return value;
   }
 

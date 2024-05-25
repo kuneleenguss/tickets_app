@@ -13,7 +13,7 @@ class OfferDto extends Offer {
       });
 
   factory OfferDto.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> map = Map.from(json['offers'][0]);
-    return _$OfferDtoFromJson(map);
+
+    return _$OfferDtoFromJson(json);
   }
 }

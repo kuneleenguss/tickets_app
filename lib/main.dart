@@ -44,13 +44,16 @@ class _AppViewState extends State<AppView> {
   void _getOffers() async {
     final dio = Dio(BaseOptions(contentType: "application/json"));
     final client = ApiClient(dio);
-    // final result = await dio.get("https://run.mocky.io/v3/7e55bf02-89ff-4847-9eb7-7d83ef884017");
+    final result = await dio.get("https://run.mocky.io/v3/7e55bf02-89ff-4847-9eb7-7d83ef884017");
     final offerDtoResult = await client.getOffers();
     final ticketOfferDtoResult = await client.getTicketOffers();
     final ticketDtoResult = await client.getTickets();
-    print(ticketDtoResult);
-    print(offerDtoResult);
-    print(ticketOfferDtoResult);
+    // print(ticketDtoResult);
+    // print(offerDtoResult);
+    // print(ticketOfferDtoResult);
+    print(offerDtoResult['offers']?[0]);
+    print(ticketOfferDtoResult['tickets_offers']?[0]);
+    print(ticketDtoResult['tickets']?[1]);
   }
 
   @override

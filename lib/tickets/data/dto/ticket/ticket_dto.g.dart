@@ -8,7 +8,7 @@ part of 'ticket_dto.dart';
 
 TicketDto _$TicketDtoFromJson(Map<String, dynamic> json) => TicketDto(
       id: (json['id'] as num).toInt(),
-      badge: json['badge'] as String,
+      badge: json['badge'] as String?,
       price: (json['price']['value'] as num).toInt(),
       departureDate: json['departure']['date'] as String,
       departureAirport: json['departure']['airport'] as String,
@@ -25,5 +25,5 @@ Map<String, dynamic> _$TicketDtoToJson(TicketDto instance) => <String, dynamic>{
       'departureAirport': instance.departureAirport,
       'arrivalDate': instance.arrivalDate,
       'arrivalAirport': instance.arrivalAirport,
-      'hasTransfer': instance.has_transfer,
+      'has_transfer': instance.has_transfer,
     };

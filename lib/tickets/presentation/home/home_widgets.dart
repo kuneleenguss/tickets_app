@@ -56,6 +56,7 @@ class _HomeInput extends StatelessWidget {
                       hintText: "Куда - Турция",
                       callback: () async {
                         await showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
                           useRootNavigator: true,
                           isScrollControlled: true,
                           context: context,

@@ -7,7 +7,7 @@ part 'ticket_dto.g.dart';
 class TicketDto extends Ticket {
   TicketDto(
       {required super.id,
-      required super.badge,
+      super.badge,
       required super.price,
       required super.departureDate,
       required super.departureAirport,
@@ -16,7 +16,7 @@ class TicketDto extends Ticket {
       required super.has_transfer});
 
   factory TicketDto.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> map = Map.from(json['tickets'][0]);
-    return _$TicketDtoFromJson(map);
+
+    return _$TicketDtoFromJson(json);
   }
 }

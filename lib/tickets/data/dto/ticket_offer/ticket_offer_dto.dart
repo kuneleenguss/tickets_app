@@ -12,7 +12,7 @@ class TicketOfferDto extends TicketOffer {
       required super.price});
 
   factory TicketOfferDto.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> map = Map.from(json['tickets_offers'][0]);
-    return _$TicketOfferDtoFromJson(map);
+
+    return _$TicketOfferDtoFromJson(json);
   }
 }
