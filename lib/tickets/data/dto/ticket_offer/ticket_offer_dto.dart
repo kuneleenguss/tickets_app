@@ -8,8 +8,11 @@ class TicketOfferDto extends TicketOffer {
   TicketOfferDto(
       {required super.id,
       required super.title,
-      required super.timeRange,
+      required super.time_range,
       required super.price});
 
-factory TicketOfferDto.fromJson(Map<String, dynamic> json) => _$TicketOfferDtoFromJson(json);
+  factory TicketOfferDto.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> map = Map.from(json['tickets_offers'][0]);
+    return _$TicketOfferDtoFromJson(map);
+  }
 }

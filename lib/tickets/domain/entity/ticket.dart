@@ -9,7 +9,7 @@ class Ticket extends Equatable {
       required this.departureAirport,
       required this.arrivalDate,
       required this.arrivalAirport,
-      required this.hasTransfer});
+      required this.has_transfer});
 
   final int id;
   final String badge;
@@ -18,7 +18,7 @@ class Ticket extends Equatable {
   final String departureAirport;
   final String arrivalDate;
   final String arrivalAirport;
-  final bool hasTransfer;
+  final bool has_transfer;
   
   @override
   List<Object?> get props => [
@@ -29,6 +29,6 @@ class Ticket extends Equatable {
     departureAirport,
     arrivalDate,
     arrivalAirport,
-    hasTransfer
+    has_transfer
   ];
 }

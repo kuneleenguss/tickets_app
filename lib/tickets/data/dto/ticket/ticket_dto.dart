@@ -13,7 +13,10 @@ class TicketDto extends Ticket {
       required super.departureAirport,
       required super.arrivalDate,
       required super.arrivalAirport,
-      required super.hasTransfer});
+      required super.has_transfer});
 
-factory TicketDto.fromJson(Map<String, dynamic> json) => _$TicketDtoFromJson(json);
+  factory TicketDto.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> map = Map.from(json['tickets'][0]);
+    return _$TicketDtoFromJson(map);
+  }
 }
