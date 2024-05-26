@@ -2,7 +2,7 @@ import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
 
 import '../../../dto/dto.dart';
-import 'api.dart';
+import '../api.dart';
 
 part 'api_client.g.dart';
 

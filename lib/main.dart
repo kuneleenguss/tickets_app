@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tickets_app/common/typography.dart';
+import 'package:tickets_app/tickets/data/repository/offer_repository_impl.dart';
+import 'package:tickets_app/tickets/data/repository/ticket_offer_repository_impl.dart';
+import 'package:tickets_app/tickets/data/repository/ticket_repository_impl.dart';
 import 'package:tickets_app/tickets/domain/entity/offer.dart';
+import 'package:tickets_app/tickets/domain/repository/ticket_offer_repository.dart';
 import 'common/colors.dart';
 import 'tickets/presentation/screens.dart';
 
@@ -44,16 +48,22 @@ class _AppViewState extends State<AppView> {
   void _getOffers() async {
     final dio = Dio(BaseOptions(contentType: "application/json"));
     final client = ApiClient(dio);
-    final result = await dio.get("https://run.mocky.io/v3/7e55bf02-89ff-4847-9eb7-7d83ef884017");
+    // final result = await dio.get("https://run.mocky.io/v3/7e55bf02-89ff-4847-9eb7-7d83ef884017");
+    // final OfferRepositoryImpl offerRepository = OfferRepositoryImpl(client: client);
+    final TicketRepositoryImpl ticketOfferRepository = TicketRepositoryImpl(client: client);
+    final result = await ticketOfferRepository.getTickets();
+    print(result);
+
     final offerDtoResult = await client.getOffers();
     final ticketOfferDtoResult = await client.getTicketOffers();
     final ticketDtoResult = await client.getTickets();
     // print(ticketDtoResult);
     // print(offerDtoResult);
     // print(ticketOfferDtoResult);
-    print(offerDtoResult['offers']?[0]);
-    print(ticketOfferDtoResult['tickets_offers']?[0]);
-    print(ticketDtoResult['tickets']?[1]);
+    // print(offerDtoResult['offers']?[0]);
+    // print(ticketOfferDtoResult['tickets_offers']?[0]);
+    // print(ticketDtoResult['tickets']?[1]);
+
   }
 
   @override
