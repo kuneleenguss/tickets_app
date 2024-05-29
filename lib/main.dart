@@ -8,7 +8,9 @@ import 'package:tickets_app/tickets/data/repository/offer_repository_impl.dart';
 import 'package:tickets_app/tickets/data/repository/ticket_offer_repository_impl.dart';
 import 'package:tickets_app/tickets/data/repository/ticket_repository_impl.dart';
 import 'package:tickets_app/tickets/domain/entity/offer.dart';
+import 'package:tickets_app/tickets/domain/repository/offer_repository.dart';
 import 'package:tickets_app/tickets/domain/repository/ticket_offer_repository.dart';
+import 'package:tickets_app/tickets/domain/usecase/load_home_screen.dart';
 import 'common/colors.dart';
 import 'tickets/presentation/screens.dart';
 
@@ -50,8 +52,14 @@ class _AppViewState extends State<AppView> {
     final client = ApiClient(dio);
     // final result = await dio.get("https://run.mocky.io/v3/7e55bf02-89ff-4847-9eb7-7d83ef884017");
     // final OfferRepositoryImpl offerRepository = OfferRepositoryImpl(client: client);
-    final TicketRepositoryImpl ticketOfferRepository = TicketRepositoryImpl(client: client);
-    final result = await ticketOfferRepository.getTickets();
+    // final ticketOfferRepository = OfferRepositoryImpl(client: client);
+    // final result = await ticketOfferRepository.getOffers();
+
+    final OfferRepository repository = OfferRepositoryImpl(client: client);
+    // final result = await repository.getOffers();
+    final loadHomeScreen = LoadHomeScreenUseCase(repository: repository);
+    final result = await loadHomeScreen();
+
     print(result);
 
     final offerDtoResult = await client.getOffers();
