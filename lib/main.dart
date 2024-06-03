@@ -18,6 +18,7 @@ import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
 import 'package:tickets_app/tickets/data/dto/offer/offer_dto.dart';
 import 'package:tickets_app/tickets/data/source/network/service/api_client.dart';
+import 'package:tickets_app/tickets/data/repository/repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -55,9 +56,10 @@ class _AppViewState extends State<AppView> {
     // final ticketOfferRepository = OfferRepositoryImpl(client: client);
     // final result = await ticketOfferRepository.getOffers();
 
-    final OfferRepository repository = OfferRepositoryImpl(client: client);
+    // final OfferRepository repository = OfferRepositoryImpl(client: client);
+    final repository = Repository(client: client).offerRepository;
     // final result = await repository.getOffers();
-    final loadHomeScreen = LoadHomeScreenUseCase(repository: repository);
+    final loadHomeScreen = LoadOffersUseCase(repository: repository);
     final result = await loadHomeScreen();
 
     print(result);

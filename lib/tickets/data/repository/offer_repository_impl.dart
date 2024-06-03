@@ -1,7 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:tickets_app/tickets/data/dto/offer/offer_dto.dart';
 import 'package:tickets_app/tickets/data/source/network/service/api_client.dart';
-import 'package:tickets_app/tickets/domain/entity/offer.dart';
 import 'package:tickets_app/tickets/domain/repository/offer_repository.dart';
 
 class OfferRepositoryImpl implements OfferRepository {
