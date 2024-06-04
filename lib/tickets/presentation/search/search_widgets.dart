@@ -34,7 +34,7 @@ class _SearchInput extends StatelessWidget {
                     style: AppThemes.buttonTransparentTheme,
                     onPressed: () {
                       if (context.mounted) {
-                        Navigator.of(context).pop(true);
+                        Navigator.of(context).pop();
                       }
                     },
                     child: SvgPicture.asset("assets/icons/ic_arrow_back.svg",
@@ -223,8 +223,24 @@ class _SearchChipItem extends StatelessWidget {
   }
 }
 
-class _SearchFlightsList extends StatelessWidget {
+class _SearchFlightsList extends StatefulWidget {
   const _SearchFlightsList({super.key});
+
+  @override
+  State<_SearchFlightsList> createState() => _SearchFlightsListState();
+}
+
+class _SearchFlightsListState extends State<_SearchFlightsList> {
+  void init() async {
+    await context.read<SearchCubit>().getTicketOffers();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,25 +259,53 @@ class _SearchFlightsList extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: ListView.separated(
-                  // ignore: body_might_complete_normally_nullable
-                  itemBuilder: (context, index) {
-                    switch (index) {
-                      case 0:
-                        return _SearchFlightsListItem(
-                            circleColor: SpecialColors.red);
-                      case 1:
-                        return _SearchFlightsListItem(
-                            circleColor: SpecialColors.blue);
-                      case 2:
-                        return _SearchFlightsListItem(
-                            circleColor: BasicColors.white);
-                    }
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(
-                        height: 8.0,
-                      ),
-                  itemCount: 3),
+              child: BlocBuilder<SearchCubit, SearchState>(
+                builder: (context, state) {
+                  final list = state.ticketOffersList;
+                  switch (state.status) {
+                    case SearchStatus.loading:
+                      return Center(
+                        child: Text("Loading...",
+                            style: AppTypography(BasicColors.white).title3),
+                      );
+                    case SearchStatus.success:
+                      return ListView.separated(
+                        itemCount: 3,
+                        // ignore: body_might_complete_normally_nullable
+                        itemBuilder: (context, index) {
+                          switch (index) {
+                            case 0:
+                              return _SearchFlightsListItem(
+                                  title: list[index].title,
+                                  time_range: list[index].time_range,
+                                  price: list[index].price,
+                                  circleColor: SpecialColors.red);
+                            case 1:
+                              return _SearchFlightsListItem(
+                                  title: list[index].title,
+                                  time_range: list[index].time_range,
+                                  price: list[index].price,
+                                  circleColor: SpecialColors.blue);
+                            case 2:
+                              return _SearchFlightsListItem(
+                                  title: list[index].title,
+                                  time_range: list[index].time_range,
+                                  price: list[index].price,
+                                  circleColor: BasicColors.white);
+                          }
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 8.0,
+                        ),
+                      );
+                    case SearchStatus.error:
+                      return Center(
+                        child: Text("Error :(",
+                            style: AppTypography(BasicColors.white).title3),
+                      );
+                  }
+                },
+              ),
             ),
           )
         ],
@@ -271,8 +315,16 @@ class _SearchFlightsList extends StatelessWidget {
 }
 
 class _SearchFlightsListItem extends StatelessWidget {
-  const _SearchFlightsListItem({super.key, required this.circleColor});
+  const _SearchFlightsListItem(
+      {super.key,
+      required this.circleColor,
+      required this.title,
+      required this.time_range,
+      required this.price});
   final Color circleColor;
+  final String title;
+  final List<String> time_range;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
@@ -315,12 +367,12 @@ class _SearchFlightsListItem extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text("Уральские авиалинии",
+                                Text(title,
                                     style: AppTypography(BasicColors.white)
                                         .title4),
                                 const Spacer(),
                                 Text(
-                                  "2 390 \u20bd",
+                                  "$price \u20bd",
                                   style:
                                       AppTypography(SpecialColors.blue).title4,
                                 ),

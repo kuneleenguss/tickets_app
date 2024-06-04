@@ -60,11 +60,14 @@ class _HomeInput extends StatelessWidget {
                           useRootNavigator: true,
                           isScrollControlled: true,
                           context: context,
-                          builder: (BuildContext context) {
-                            return HomeModalWindow(
-                              departureFieldController:
-                                  _departureFieldController,
-                              arrivalFieldController: _arrivalFieldController,
+                          builder: (_) {
+                            return BlocProvider.value(
+                              value: BlocProvider.of<SearchCubit>(context),
+                              child: HomeModalWindow(
+                                departureFieldController:
+                                    _departureFieldController,
+                                arrivalFieldController: _arrivalFieldController,
+                              ),
                             );
                           },
                         );

@@ -120,15 +120,20 @@ class _HomeModalArrivalInputFieldState
   void handleArrivalField() async {
     print(_arrivalFieldFocusNode.hasFocus);
     if (_arrivalFieldFocusNode.hasFocus == false &&
-        widget.arrivalFieldController.text.isNotEmpty && context.mounted && currentText != widget.arrivalFieldController.text) {
+        widget.arrivalFieldController.text.isNotEmpty &&
+        context.mounted &&
+        currentText != widget.arrivalFieldController.text) {
       final navigator = Navigator.of(context);
       final reLoadPage = await navigator.push(
-        MaterialPageRoute(builder: (context) {
+        MaterialPageRoute<SearchScreen>(builder: (_) {
           widget.arrivalFieldController.removeListener(handleArrivalField);
           _arrivalFieldFocusNode.removeListener(handleArrivalField);
-          return SearchScreen(
-              departureFieldController: widget.departureFieldController,
-              arrivalFieldController: widget.arrivalFieldController);
+          return BlocProvider.value(
+            value: BlocProvider.of<SearchCubit>(context),
+            child: SearchScreen(
+                departureFieldController: widget.departureFieldController,
+                arrivalFieldController: widget.arrivalFieldController),
+          );
         }),
       );
       if (context.mounted == true && reLoadPage == true) {

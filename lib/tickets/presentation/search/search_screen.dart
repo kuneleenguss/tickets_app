@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
 import 'package:tickets_app/common/typography.dart';
 import 'package:tickets_app/common/widgets/input_field.dart';
 import 'package:tickets_app/common/themes.dart';
 import 'package:tickets_app/common/date.dart';
+import 'package:tickets_app/tickets/domain/usecase/usecase.dart';
+import 'package:tickets_app/tickets/presentation/search/cubit/search_cubit.dart';
 import '../tickets/tickets_screen.dart';
 
 part "search_widgets.dart";
@@ -46,7 +49,8 @@ class SearchScreen extends StatelessWidget {
               child: _SearchShowTicketsButton(
                 callback: () {
                   if (departureFieldController.text.isNotEmpty &&
-                      arrivalFieldController.text.isNotEmpty && context.mounted) {
+                      arrivalFieldController.text.isNotEmpty &&
+                      context.mounted) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(

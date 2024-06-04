@@ -6,6 +6,7 @@ import 'package:tickets_app/common/typography.dart';
 import 'package:tickets_app/common/widgets/input_field.dart';
 import 'package:tickets_app/tickets/domain/usecase/usecase.dart';
 import 'package:tickets_app/tickets/presentation/home/cubit/home_cubit.dart';
+import 'package:tickets_app/tickets/presentation/search/cubit/search_cubit.dart';
 import 'modal/modal_screen.dart';
 
 part 'home_widgets.dart';
@@ -26,7 +27,19 @@ class HomeScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 36, left: 16, right: 16),
-              child: _HomeInput(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<SearchCubit>(
+                    lazy: false,
+                    create: (context) => SearchCubit(
+                        useCase: context.read<LoadTicketOffersUseCase>()),
+                  ),
+                  BlocProvider(
+                    create: (context) => SubjectBloc(),
+                  ),
+                ],
+                child: _HomeInput(),
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 32, left: 16),
