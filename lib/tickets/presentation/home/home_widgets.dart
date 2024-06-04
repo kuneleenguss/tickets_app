@@ -109,29 +109,74 @@ class _HomeOfferListLabel extends StatelessWidget {
   }
 }
 
-class _HomeOfferList extends StatelessWidget {
+class _HomeOfferList extends StatefulWidget {
   const _HomeOfferList({super.key});
+
+  @override
+  State<_HomeOfferList> createState() => _HomeOfferListState();
+}
+
+class _HomeOfferListState extends State<_HomeOfferList> {
+  void init() async {
+    await context.read<HomeCubit>().getOffers();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 213.16,
-      child: ListView.separated(
-        separatorBuilder: (context, index) {
-          return const Padding(padding: EdgeInsets.only(left: 67));
-        },
-        scrollDirection: Axis.horizontal,
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return _HomeOfferListCard();
-        },
-      ),
-    );
+        height: 213.16,
+        child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+          final list = state.offerList;
+          switch (state.status) {
+            case HomeStatus.loading:
+              return Center(
+                child: Text("Loading...",
+                    style: AppTypography(BasicColors.white).title3),
+              );
+
+            case HomeStatus.success:
+              return ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const Padding(padding: EdgeInsets.only(left: 67));
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return _HomeOfferListCard(
+                    title: list[index].title,
+                    town: list[index].town,
+                    price: list[index].price,
+                  );
+                },
+              );
+
+            default:
+              return const _HomeOfferListCard(
+                title: "Error",
+                town: "Error",
+                price: 0,
+              );
+          }
+        }));
   }
 }
 
 class _HomeOfferListCard extends StatelessWidget {
-  const _HomeOfferListCard({super.key});
+  const _HomeOfferListCard(
+      {super.key,
+      required this.title,
+      required this.town,
+      required this.price});
+  final String title;
+  final String town;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
@@ -147,13 +192,11 @@ class _HomeOfferListCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Text("Die Antwoord",
-              style: AppTypography(BasicColors.white).title3),
+          child: Text(title, style: AppTypography(BasicColors.white).title3),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child:
-              Text("Будапешт", style: AppTypography(BasicColors.white).text2),
+          child: Text(town, style: AppTypography(BasicColors.white).text2),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -164,7 +207,7 @@ class _HomeOfferListCard extends StatelessWidget {
                   height: 24,
                   child: SvgPicture.asset("assets/icons/ic_plane.svg",
                       fit: BoxFit.none, color: BasicColors.grey6)),
-              Text("от 22 264 \u20bd",
+              Text("от $price \u20bd",
                   style: AppTypography(BasicColors.white).text2),
             ],
           ),

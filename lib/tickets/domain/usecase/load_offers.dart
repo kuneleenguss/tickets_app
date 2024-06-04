@@ -1,5 +1,4 @@
-import 'package:tickets_app/tickets/data/dto/offer/offer_dto.dart';
-import 'package:tickets_app/tickets/domain/repository/offer_repository.dart';
+part of 'usecase.dart';
 
 class LoadOffersUseCase {
   LoadOffersUseCase({required OfferRepository repository})

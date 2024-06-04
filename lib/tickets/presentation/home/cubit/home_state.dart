@@ -3,10 +3,10 @@ part of 'home_cubit.dart';
 enum HomeStatus { loading, success, error }
 
 class HomeState extends Equatable {
-  const HomeState({this.status = HomeStatus.loading, this.offerList});
+  const HomeState({this.status = HomeStatus.loading, this.offerList = const []});
 
   final HomeStatus status;
-  final List<OfferDto>? offerList;
+  final List<OfferDto> offerList;
 
   HomeState copyWith({HomeStatus? status, List<OfferDto>? offerList}) {
     return HomeState(
@@ -14,5 +14,5 @@ class HomeState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, offerList!];
+  List<Object> get props => [status, offerList];
 }

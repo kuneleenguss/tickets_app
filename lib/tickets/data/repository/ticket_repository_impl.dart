@@ -1,6 +1,4 @@
-import 'package:tickets_app/tickets/data/dto/ticket/ticket_dto.dart';
-import 'package:tickets_app/tickets/data/source/network/service/api_client.dart';
-import 'package:tickets_app/tickets/domain/repository/ticket_repository.dart';
+part of 'repository.dart';
 
 class TicketRepositoryImpl implements TicketRepository {
   TicketRepositoryImpl({required ApiClient client}) : _client = client;
