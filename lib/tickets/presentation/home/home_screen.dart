@@ -7,6 +7,7 @@ import 'package:tickets_app/common/widgets/input_field.dart';
 import 'package:tickets_app/tickets/domain/usecase/usecase.dart';
 import 'package:tickets_app/tickets/presentation/home/cubit/home_cubit.dart';
 import 'package:tickets_app/tickets/presentation/search/cubit/search_cubit.dart';
+import 'package:tickets_app/tickets/presentation/tickets/cubit/tickets_cubit.dart';
 import 'modal/modal_screen.dart';
 
 part 'home_widgets.dart';
@@ -35,7 +36,9 @@ class HomeScreen extends StatelessWidget {
                         useCase: context.read<LoadTicketOffersUseCase>()),
                   ),
                   BlocProvider(
-                    create: (context) => SubjectBloc(),
+                    lazy: false,
+                    create: (context) => TicketsCubit(
+                        useCase: context.read<LoadTicketsUseCase>()),
                   ),
                 ],
                 child: _HomeInput(),

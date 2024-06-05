@@ -7,6 +7,7 @@ import 'package:tickets_app/common/widgets/input_field.dart';
 import 'package:tickets_app/common/themes.dart';
 import 'package:tickets_app/tickets/domain/usecase/usecase.dart';
 import 'package:tickets_app/tickets/presentation/search/cubit/search_cubit.dart';
+import 'package:tickets_app/tickets/presentation/tickets/cubit/tickets_cubit.dart';
 import '../../search/search_screen.dart';
 
 part 'modal_widgets.dart';

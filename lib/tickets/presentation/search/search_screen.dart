@@ -9,6 +9,7 @@ import 'package:tickets_app/common/themes.dart';
 import 'package:tickets_app/common/date.dart';
 import 'package:tickets_app/tickets/domain/usecase/usecase.dart';
 import 'package:tickets_app/tickets/presentation/search/cubit/search_cubit.dart';
+import 'package:tickets_app/tickets/presentation/tickets/cubit/tickets_cubit.dart';
 import '../tickets/tickets_screen.dart';
 
 part "search_widgets.dart";
@@ -54,9 +55,12 @@ class SearchScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TicketsScreen(
-                            departureCity: departureFieldController.text,
-                            arrivalCity: arrivalFieldController.text,
+                          builder: (_) => BlocProvider.value(
+                            value: BlocProvider.of<TicketsCubit>(context),
+                            child: TicketsScreen(
+                              departureCity: departureFieldController.text,
+                              arrivalCity: arrivalFieldController.text,
+                            ),
                           ),
                         ));
                   }

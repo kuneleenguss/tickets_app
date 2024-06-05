@@ -388,10 +388,15 @@ class _SearchFlightsListItem extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                "Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong text",
-                                style: AppTypography(BasicColors.white).text2,
-                                overflow: TextOverflow.ellipsis,
+                              child: Builder(
+                                builder: (context) {
+                                  final timeRangeString = time_range.join(" ");
+                                  return Text(
+                                    timeRangeString,
+                                    style: AppTypography(BasicColors.white).text2,
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                }
                               ),
                             )
                           ],

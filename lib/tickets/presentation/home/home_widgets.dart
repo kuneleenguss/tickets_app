@@ -61,8 +61,15 @@ class _HomeInput extends StatelessWidget {
                           isScrollControlled: true,
                           context: context,
                           builder: (_) {
-                            return BlocProvider.value(
-                              value: BlocProvider.of<SearchCubit>(context),
+                            return MultiBlocProvider(
+                              providers: [
+                                BlocProvider.value(
+                                  value: BlocProvider.of<SearchCubit>(context),
+                                ),
+                                BlocProvider.value(
+                                  value: BlocProvider.of<TicketsCubit>(context),
+                                ),
+                              ],
                               child: HomeModalWindow(
                                 departureFieldController:
                                     _departureFieldController,

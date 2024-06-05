@@ -1,7 +1,8 @@
 part of "tickets_screen.dart";
 
 class _TicketsInfoLabel extends StatelessWidget {
-  const _TicketsInfoLabel({super.key, required this.departureCity, required this.arrivalCity});
+  const _TicketsInfoLabel(
+      {super.key, required this.departureCity, required this.arrivalCity});
   final String departureCity;
   final String arrivalCity;
 
@@ -18,7 +19,7 @@ class _TicketsInfoLabel extends StatelessWidget {
               dimension: 24.0,
               child: ElevatedButton(
                 style: AppThemes.buttonTransparentTheme,
-                onPressed:() => Navigator.pop(context),
+                onPressed: () => Navigator.pop(context),
                 child: SvgPicture.asset("assets/icons/ic_arrow_back.svg",
                     fit: BoxFit.none, color: SpecialColors.blue),
               ),
@@ -44,8 +45,24 @@ class _TicketsInfoLabel extends StatelessWidget {
   }
 }
 
-class _TicketsList extends StatelessWidget {
+class _TicketsList extends StatefulWidget {
   const _TicketsList({super.key});
+
+  @override
+  State<_TicketsList> createState() => _TicketsListState();
+}
+
+class _TicketsListState extends State<_TicketsList> {
+  void init() async {
+    await context.read<TicketsCubit>().getTickets();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +71,38 @@ class _TicketsList extends StatelessWidget {
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
-            ListView.separated(
-                itemBuilder: (context, index) => _TicketsListItem(),
-                separatorBuilder: (context, index) => const SizedBox(
-                      height: 16.0,
-                    ),
-                itemCount: 5),
+            BlocBuilder<TicketsCubit, TicketsState>(
+              builder: (context, state) {
+                final list = state.ticketsList;
+                switch (state.status) {
+                  case TicketsStatus.loading:
+                    return Center(
+                      child: Text("Loading...",
+                          style: AppTypography(BasicColors.white).title3),
+                    );
+                  case TicketsStatus.success:
+                    return ListView.separated(
+                        itemCount: list.length,
+                        itemBuilder: (context, index) => _TicketsListItem(
+                          price: list[index].price,
+                          departureDate: list[index].departureDate,
+                          departureAirport: list[index].departureAirport,
+                          arrivalDate: list[index].arrivalDate,
+                          arrivalAirport: list[index].arrivalAirport,
+                          has_transfer: list[index].has_transfer,
+                          badge: list[index].badge,
+                        ),
+                        separatorBuilder: (context, index) => const SizedBox(
+                              height: 16.0,
+                            ),);
+                  case TicketsStatus.error:
+                    return Center(
+                      child: Text("Error :(",
+                          style: AppTypography(BasicColors.white).title3),
+                    );
+                }
+              },
+            ),
             Positioned(
               bottom: 16.0,
               child: Container(
@@ -122,7 +165,22 @@ class _TicketsList extends StatelessWidget {
 }
 
 class _TicketsListItem extends StatelessWidget {
-  const _TicketsListItem({super.key});
+  const _TicketsListItem(
+      {super.key,
+      this.badge,
+      required this.price,
+      required this.departureDate,
+      required this.departureAirport,
+      required this.arrivalDate,
+      required this.arrivalAirport,
+      required this.has_transfer});
+  final String? badge;
+  final int price;
+  final String departureDate;
+  final String departureAirport;
+  final String arrivalDate;
+  final String arrivalAirport;
+  final bool has_transfer;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +198,7 @@ class _TicketsListItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("6 990 \u20bd",
+                Text("$price \u20bd",
                     style: AppTypography(BasicColors.white).title1),
                 SizedBox(height: 16.0),
                 Row(
@@ -162,22 +220,34 @@ class _TicketsListItem extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text("03:15 - 07:10",
+                            Text("$departureDate - $arrivalDate",
                                 style: AppTypography(BasicColors.white).title4),
                             SizedBox(width: 16.0),
-                            Text("4ч в пути / Без пересадок",
-                                style: AppTypography(BasicColors.white).text2)
+                            Builder(
+                                builder: (context) => has_transfer
+                                    ? Text(
+                                        "4ч в пути",
+                                        style: AppTypography(BasicColors.white)
+                                            .text2,
+                                        overflow: TextOverflow.ellipsis,
+                                      )
+                                    : Text(
+                                        "4ч в пути / Без пересадок",
+                                        style: AppTypography(BasicColors.white)
+                                            .text2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ))
                           ],
                         ),
                         SizedBox(height: 4.0),
                         Row(children: [
                           Text(
-                            "VKO",
+                            departureAirport,
                             style: AppTypography(BasicColors.grey6).title4,
                           ),
                           SizedBox(width: 20.0),
                           Text(
-                            "AER",
+                            arrivalAirport,
                             style: AppTypography(BasicColors.grey6).title4,
                           ),
                         ])
@@ -188,25 +258,28 @@ class _TicketsListItem extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            top: -8.0,
-            child: Flex(
-              direction: Axis.horizontal,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 2.0, bottom: 2.0),
-                  decoration: BoxDecoration(
-                      color: SpecialColors.blue,
-                      borderRadius: BorderRadius.circular(50.0)),
-                  child: Text(
-                    "Самый удобный",
-                    style: AppTypography(BasicColors.white).title4,
-                  ),
-                )
-              ],
-            ),
-          )
+          Builder(
+              builder: (context) => badge != null
+                  ? Positioned(
+                      top: -8.0,
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 2.0, bottom: 2.0),
+                            decoration: BoxDecoration(
+                                color: SpecialColors.blue,
+                                borderRadius: BorderRadius.circular(50.0)),
+                            child: Text(
+                              badge!,
+                              style: AppTypography(BasicColors.white).title4,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  : Container())
         ],
       ),
     );

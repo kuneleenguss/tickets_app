@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tickets_app/common/colors.dart';
 import 'package:tickets_app/common/typography.dart';
 import 'package:tickets_app/common/themes.dart';
+import 'package:tickets_app/tickets/presentation/tickets/cubit/tickets_cubit.dart';
 
 part "tickets_widgets.dart";
 

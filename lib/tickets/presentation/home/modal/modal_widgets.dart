@@ -128,8 +128,15 @@ class _HomeModalArrivalInputFieldState
         MaterialPageRoute<SearchScreen>(builder: (_) {
           widget.arrivalFieldController.removeListener(handleArrivalField);
           _arrivalFieldFocusNode.removeListener(handleArrivalField);
-          return BlocProvider.value(
-            value: BlocProvider.of<SearchCubit>(context),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: BlocProvider.of<SearchCubit>(context),
+              ),
+              BlocProvider.value(
+                value: BlocProvider.of<TicketsCubit>(context),
+              ),
+            ],
             child: SearchScreen(
                 departureFieldController: widget.departureFieldController,
                 arrivalFieldController: widget.arrivalFieldController),
